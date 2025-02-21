@@ -4,8 +4,10 @@ import {
   repositoryRejected,
   setCurrentPage,
 } from "../store/slice";
-const token = "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";
 
+import 'dotenv/config';
+
+const token = process.env.GITHUB_TOKEN;
 export default function Api(user, currentPage) {
   return async function (dispatch, getState) {
     const state = getState().repository;
@@ -18,7 +20,7 @@ export default function Api(user, currentPage) {
         `https://api.github.com/users/${user}/repos?per_page=20&page=${currentPage}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
         }
       );
